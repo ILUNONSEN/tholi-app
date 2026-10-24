@@ -1,0 +1,128 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Tholi.Desktop.ViewModels"
+        x:Class="Tholi.Desktop.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Tholi — Find your way forward" Width="1180" Height="800"
+        MinWidth="860" MinHeight="650" Icon="/Assets/tholi_icon.png">
+  <Grid ColumnDefinitions="220,*">
+    <Border Background="{StaticResource CardBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,1,0" Padding="22,30">
+      <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,36">
+          <Image Source="/Assets/tholi_brand_logo.png" Width="120" Height="48" HorizontalAlignment="Left" Stretch="Uniform" />
+          <TextBlock Text="A LITTLE DIRECTION" Classes="eyebrow" Margin="0,10,0,0" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Spacing="10">
+          <Border Background="{StaticResource SageBrush}" Padding="12" CornerRadius="10">
+            <StackPanel Spacing="5">
+              <TextBlock Text="On your terms" FontWeight="SemiBold" />
+              <TextBlock Text="You stay in control.&#10;Assistance asks first." Classes="muted" FontSize="12" />
+            </StackPanel>
+          </Border>
+          <TextBlock Text="DESKTOP PREVIEW · 0.1.0" Classes="muted" FontSize="10" Margin="4,8,0,0" />
+        </StackPanel>
+        <StackPanel Spacing="8">
+          <Button Classes="nav" Content="Guide" Command="{Binding GuideCommand}" />
+          <Button Classes="nav" Content="Conversation" Command="{Binding ConversationCommand}" />
+          <Button Classes="nav" Content="Settings" Command="{Binding SettingsCommand}" />
+        </StackPanel>
+      </DockPanel>
+    </Border>
+    <Grid Grid.Column="1" RowDefinitions="Auto,*,Auto" Margin="38,30">
+      <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,24">
+        <StackPanel Spacing="6">
+          <TextBlock Text="{Binding Section}" Classes="eyebrow" />
+          <TextBlock Text="Find your way forward." FontSize="29" FontWeight="SemiBold" />
+        </StackPanel>
+        <Border Grid.Column="1" Background="{StaticResource SageBrush}" CornerRadius="20" Padding="14,8" VerticalAlignment="Center">
+          <TextBlock Text="Local preview" Foreground="{StaticResource JadeBrush}" FontSize="12" />
+        </Border>
+      </Grid>
+
+      <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="20" Margin="0,0,8,16">
+          <StackPanel IsVisible="{Binding ShowGuide}" Spacing="20">
+            <Border Classes="card">
+              <StackPanel Spacing="16">
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBlock Text="YOUR NEXT STEP" Classes="eyebrow" VerticalAlignment="Center" />
+                  <TextBlock Grid.Column="1" Text="{Binding Status}" Classes="muted" FontSize="12" />
+                </Grid>
+                <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="SemiBold" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Instruction}" Classes="muted" TextWrapping="Wrap" LineHeight="23" />
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                  <Button Content="Pause / resume" Command="{Binding PauseCommand}" />
+                  <Button Content="Stop" Command="{Binding StopCommand}" />
+                </StackPanel>
+              </StackPanel>
+            </Border>
+
+            <Border Classes="card" Background="#F0F3EE">
+              <StackPanel Spacing="14">
+                <TextBlock Text="PRACTICE WORKSPACE" Classes="eyebrow" />
+                <TextBlock Text="A small place to try it" FontSize="18" FontWeight="SemiBold" />
+                <TextBlock Text="Open display settings in this sample workspace." Classes="muted" TextWrapping="Wrap" />
+                <WrapPanel>
+                  <Button Content="Settings" Command="{Binding OpenMenuCommand}" Margin="0,0,10,10" />
+                  <Button Content="Display" IsVisible="{Binding MenuOpen}" Command="{Binding OpenDisplayCommand}" Margin="0,0,10,10" />
+                </WrapPanel>
+                <Border IsVisible="{Binding DisplayOpen}" Background="{StaticResource CardBrush}" BorderBrush="{StaticResource JadeBrush}" BorderThickness="2" CornerRadius="10" Padding="18">
+                  <StackPanel Spacing="6">
+                    <TextBlock Text="Display" FontSize="18" FontWeight="SemiBold" />
+                    <TextBlock Text="The requested screen is now visible." Classes="muted" />
+                  </StackPanel>
+                </Border>
+                <Button Content="Ask Tholi to open the menu" Command="{Binding RequestHelpCommand}" HorizontalAlignment="Left" />
+              </StackPanel>
+            </Border>
+
+            <Border Classes="card" BorderBrush="{StaticResource AmberBrush}" BorderThickness="2" IsVisible="{Binding ConsentVisible}">
+              <StackPanel Spacing="12">
+                <TextBlock Text="May I open this menu?" FontSize="19" FontWeight="SemiBold" />
+                <TextBlock Text="Tholi will open Settings in this practice workspace, then return control to you." TextWrapping="Wrap" Classes="muted" />
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                  <Button Classes="primary" Content="Yes, open this menu" Command="{Binding ApproveCommand}" />
+                  <Button Content="I'll do it" Command="{Binding DeclineCommand}" />
+                </StackPanel>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+
+          <Border Classes="card" IsVisible="{Binding ShowConversation}">
+            <StackPanel Spacing="16">
+              <TextBlock Text="Your destination, kept in view." FontSize="22" FontWeight="SemiBold" TextWrapping="Wrap" />
+              <TextBlock Text="{Binding Conversation}" TextWrapping="Wrap" LineHeight="25" />
+            </StackPanel>
+          </Border>
+
+          <Border Classes="card" IsVisible="{Binding ShowSettings}">
+            <StackPanel Spacing="18">
+              <TextBlock Text="A little help, on your terms." FontSize="22" FontWeight="SemiBold" TextWrapping="Wrap" />
+              <TextBlock Text="Processing" FontWeight="SemiBold" />
+              <TextBlock Text="Local preview. No screenshots, field values, or destinations are sent to a server." Classes="muted" TextWrapping="Wrap" />
+              <Separator />
+              <TextBlock Text="Desktop connection" FontWeight="SemiBold" />
+              <TextBlock Text="Not connected. OS observation and input require a native adapter." Classes="muted" TextWrapping="Wrap" />
+              <Separator />
+              <TextBlock Text="Cloud and background services" FontWeight="SemiBold" />
+              <TextBlock Text="Not connected. The scaffold includes separate agent and runtime projects; startup and IPC are not installed." Classes="muted" TextWrapping="Wrap" />
+            </StackPanel>
+          </Border>
+
+          <TextBlock Text="{Binding Notice}" Classes="muted" TextWrapping="Wrap" FontSize="12" LineHeight="20" />
+        </StackPanel>
+      </ScrollViewer>
+
+      <Border Grid.Row="2" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="0,20,0,0">
+        <StackPanel Spacing="10">
+          <TextBlock Text="Where do you want to go?" FontWeight="SemiBold" />
+          <Grid ColumnDefinitions="*,Auto">
+            <TextBox Text="{Binding Destination, Mode=TwoWay}" PlaceholderText="Describe your destination…" Margin="0,0,12,0" AutomationProperties.Name="Destination" />
+            <Button Grid.Column="1" Classes="primary" Content="Guide me" Command="{Binding StartCommand}" />
+          </Grid>
+          <Button Content="Try: Open display settings" Command="{Binding SampleCommand}" HorizontalAlignment="Left" Padding="0" MinHeight="30" Background="Transparent" Foreground="{StaticResource JadeBrush}" />
+        </StackPanel>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>

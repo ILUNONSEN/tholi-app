@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "copiedAt": "2026-10-24",
+  "upstreamRepository": "https://github.com/Sammieblz/tholi",
+  "upstreamRevision": "231818dfff99dd7eda48be90973625cc08cb6d4d",
+  "designTokensSource": "packages/ui/styles/tokens.css",
+  "files": [
+    {
+      "path": "src/Tholi.Desktop/Assets/tholi_brand_logo.png",
+      "source": "Desktop/tholi/Media/tholi_brand_logo.png",
+      "sha256": "a72353cc73aecd97c1813feda2c53fbe35e51d549edc9b3d92b22fce25b2c458",
+      "bytes": 627606
+    },
+    {
+      "path": "src/Tholi.Desktop/Assets/tholi_icon.png",
+      "source": "Desktop/tholi/Media/tholi_icon.png",
+      "sha256": "1ad7fec0d5473bd917f6e3b9871c1b1abf1760ecf8c1630a70abad3baff9518b",
+      "bytes": 689141
+    }
+  ]
+}

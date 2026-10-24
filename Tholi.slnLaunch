@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "Tholi Desktop",
+    "Projects": [
+      {
+        "Path": "src\\Tholi.Desktop\\Tholi.Desktop.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
